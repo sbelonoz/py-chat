@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 
 class ChatUI():
     """This class encapsulates out application"""
@@ -10,6 +12,12 @@ class ChatUI():
 
         # Create a GUI application
         app = QApplication([])
+
+        # Style app
+        app.setStyle('Windows')
+        palette = QPalette()
+        palette.setColor(QPalette.ButtonText, Qt.red)
+        app.setPalette(palette)
 
         # Create our root window
         window = QWidget()
