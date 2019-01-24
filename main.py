@@ -2,6 +2,9 @@
 
 from PyQt5.QtWidgets import *
 
+# Counter of number of clicks
+button_clicks = 0
+
 # Create a GUI application
 app = QApplication([])
 
@@ -21,6 +24,14 @@ label.show()
 
 # Create a button
 button = QPushButton('Click me')
+
+def on_button_clicked():
+    global button_clicks
+    button_clicks += 1
+
+    label.setText("Button was clicked " + str(button_clicks) + " times")
+
+button.clicked.connect(on_button_clicked)
 
 # Add widgets to the layout
 layout.addWidget(label)
