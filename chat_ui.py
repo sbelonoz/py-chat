@@ -10,6 +10,11 @@ class ChatUI():
         # Counter of number of clicks
         self.button_clicks = 0
 
+        initial_history = """Welcome to hackchat
+Batman: hi
+You: Hi
+Batman: Crime"""
+
         # Create a GUI application
         app = QApplication([])
 
@@ -28,27 +33,43 @@ class ChatUI():
 
 
         # Creeate a text display
-        label = QLabel('Hello, Cyber')
+        lbl_message = QLabel('Type your message')
 
         # Make it visible
-        label.show()
+        lbl_message.show()
+
+        # txt_ is a multi line text box
+        # imp_ is an input box
+        # btn_ is a button
+        # lbl_ is a label
+
+        txt_history = QTextEdit()
+        txt_history.setPlainText(initial_history)
+        txt_history.setReadOnly(True)
+
+        # Create an input box
+        inp_message = QLineEdit()
+
+        inp_message.returnPressed.connect(self.send)
 
         # Create a button
-        button = QPushButton('Click me')
-
-        button.clicked.connect(self.button_clicked)
+        # button = QPushButton('Send')
+        # button.clicked.connect(self.button_clicked)
 
         # Add widgets to the layout
-        layout.addWidget(label)
-        layout.addWidget(button)
+        layout.addWidget(txt_history)
+        layout.addWidget(lbl_message)
+        layout.addWidget(inp_message)
+    #   layout.addWidget(button)
 
         window.show()
 
         self.app = app
         self.window = window
         self.layout = layout
-        self.label = label
-        self.button = button
+        self.inp_message = inp_message
+        self.txt_history = txt_history
+    #   self.button = button
 
     def button_clicked(self):
         self.button_clicks += 1
@@ -56,3 +77,9 @@ class ChatUI():
 
     def run(self):
         self.app.exec_()
+
+    def send(self):
+        user_typed = self.inp_message
+        display = 'You: ' + user_typed.text()
+        self.txt_history.append(display)
+        self.inp_message.setText('')
